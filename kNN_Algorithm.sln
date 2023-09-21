@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34024.191
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kNN_Algorithm", "kNN_Algorithm\kNN_Algorithm.csproj", "{D230BF7C-14A9-41EF-AB68-AA6A8F582E2A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D230BF7C-14A9-41EF-AB68-AA6A8F582E2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D230BF7C-14A9-41EF-AB68-AA6A8F582E2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D230BF7C-14A9-41EF-AB68-AA6A8F582E2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D230BF7C-14A9-41EF-AB68-AA6A8F582E2A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B7BBF4F4-86D7-42C9-B08F-2FB14F6120C2}
+	EndGlobalSection
+EndGlobal
