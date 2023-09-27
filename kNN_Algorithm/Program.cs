@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Security.Cryptography.X509Certificates;
+using System.Linq;
+using System.Collections.Immutable;
 
 string dataSetPath = "C:\\Users\\aliev\\Downloads\\DataSetCode.csv";
 List<itemInDataSet> items = new List<itemInDataSet>();
@@ -47,6 +49,7 @@ class DataSet
     {
         _title = title;
         _path = path;
+        _items = new List<itemInDataSet>();
     }
 
     public static double CalculateEuclideanDistanceFree(itemInDataSet a, itemInDataSet b) 
@@ -89,6 +92,22 @@ class DataSet
         return dataSets;
     }
     
+    public static List<itemInDataSet> GetNeighbours(itemInDataSet testData, List<itemInDataSet> classifiedData, int k)
+    {
+        Dictionary<int, double> distances = new Dictionary<int, double>();
+        List<int> sortedID = new List<int>();
+        List<itemInDataSet> neighbours = new List<itemInDataSet>();
+
+        for (int i = 0; i < classifiedData.Count(); i++)
+            distances.Add(i, DataSet.CalculateEuclideanDistanceFree(testData, classifiedData[i]));
+
+        sortedID = distances.OrderBy(n => n.Value).Select(n => n.Key).ToList();
+
+        for (int i = 1; i < k; i++)
+            neighbours.Add(classifiedData[sortedID[i]]);
+
+        return neighbours;
+    }
 
 }
 
