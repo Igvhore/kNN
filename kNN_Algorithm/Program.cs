@@ -11,7 +11,6 @@ using System.Collections.Immutable;
 string dataSetPath = "C:\\Users\\aliev\\Downloads\\DataSetCode.csv";
 List<itemInDataSet> items = new List<itemInDataSet>();
 
-
 using (var reader = new StreamReader(dataSetPath))
 
 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
@@ -23,6 +22,12 @@ using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
 }
 
 List<itemInDataSet>[] testAndClassifiedData = DataSet.SplitDataSet(items, 0.2);
+
+foreach (var data in testAndClassifiedData[1])
+{
+    List<itemInDataSet> neighbours = DataSet.GetNeighbours(data, testAndClassifiedData[0], 3);
+    DataSet.PredictItemClass(data, neighbours);
+}
 
 
 class DataSet
@@ -103,63 +108,40 @@ class DataSet
 
         sortedID = distances.OrderBy(n => n.Value).Select(n => n.Key).ToList();
 
-        for (int i = 1; i < k; i++)
+        for (int i = 0; i < k; i++)
             neighbours.Add(classifiedData[sortedID[i]]);
 
         return neighbours;
     }
 
+    public static void PredictItemClass(itemInDataSet itemForClassification, List<itemInDataSet> neighbours)
+    {
+        int tea = 0;
+        int coffee = 0;
+
+        foreach (itemInDataSet neighbour in neighbours)
+        {
+            if (neighbour.Class == "Coffee")
+                coffee++;
+            else if (neighbour.Class == "Tea")
+                tea++;
+        }
+
+        Console.WriteLine($"Item ID: {itemForClassification.GetHashCode()}");
+        Console.WriteLine($"Item Class: {itemForClassification.Class}");
+
+        if (tea > coffee)
+            itemForClassification.Class = "Tea";
+        else
+            itemForClassification.Class = "Coffee";
+
+        Console.WriteLine($"Coffee: {coffee} Tea: {tea}");
+
+        Console.WriteLine($"Class based on model prediction: {itemForClassification.Class}");
+        Console.WriteLine();    
+    }
+
 }
-
-/*class itemInDataSet
-{
-    private string _item_class;
-    private List<double> _parameters;
-
-    public itemInDataSet() 
-    {
-        _item_class = "Empty DataSet";
-        _parameters = new List<double>();
-    }
-
-    public itemInDataSet(string title, List<double> parameters)
-    {
-        _item_class = title;
-        _parameters = parameters;
-    }
-}
-
-string dataSetPath = "C:\\Users\\aliev\\Downloads\\DataSetCode.csv";
-
-using (var reader = new StreamReader(dataSetPath))
-
-using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-{
-    var records = csv.GetRecords<Point>();
-}
-
-
-class DataSet
-{
-    private string _name { get; set; }
-    private int _size { get; set; }
-    private Point[] _points { get; set; }
-
-    public DataSet()
-    {
-        _name = "";
-        _size = 0;
-        _points = new Point[0];
-    }
-
-    public DataSet (string name, int size)
-    {
-        _name = name;
-        _size = size;
-        _points = new Point[size];
-    }
-
-}*/
 
 
 class itemInDataSet
