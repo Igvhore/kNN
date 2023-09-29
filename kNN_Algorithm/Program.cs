@@ -23,9 +23,9 @@ using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
 
 List<itemInDataSet>[] testAndClassifiedData = DataSet.SplitDataSet(items, 0.2);
 
-foreach (var data in testAndClassifiedData[1])
+foreach (var data in testAndClassifiedData[0])
 {
-    List<itemInDataSet> neighbours = DataSet.GetNeighbours(data, testAndClassifiedData[0], 3);
+    List<itemInDataSet> neighbours = DataSet.GetNeighbours(data, testAndClassifiedData[1], 7);
     DataSet.PredictItemClass(data, neighbours);
 }
 
@@ -130,12 +130,7 @@ class DataSet
         Console.WriteLine($"Item ID: {itemForClassification.GetHashCode()}");
         Console.WriteLine($"Item Class: {itemForClassification.Class}");
 
-        if (tea > coffee)
-            itemForClassification.Class = "Tea";
-        else
-            itemForClassification.Class = "Coffee";
-
-        Console.WriteLine($"Coffee: {coffee} Tea: {tea}");
+        itemForClassification.Class = tea > coffee ? "Tea" : "Coffee";       
 
         Console.WriteLine($"Class based on model prediction: {itemForClassification.Class}");
         Console.WriteLine();    
@@ -147,13 +142,13 @@ class DataSet
 class itemInDataSet
 {
     public string Class { get; set; }
-    public int Sex { get; set; }
-    public int Sport { get; set; }
-    public int Job { get; set; }
-    public int HeartDisease { get; set; }
-    public int OwlOrLark { get; set; }
-    public int Milk { get; set; }
-    public int WakeUpTime { get; set; }
-    public int Region { get; set; }
-    public int SleepTime { get; set; }
+    public double Sex { get; set; }
+    public double Sport { get; set; }
+    public double Job { get; set; }
+    public double HeartDisease { get; set; }
+    public double OwlOrLark { get; set; }
+    public double Milk { get; set; }
+    public double WakeUpTime { get; set; }
+    public double Region { get; set; }
+    public double SleepTime { get; set; }
 }
